@@ -1,23 +1,35 @@
 <?php
 
-require 'includes/database.php';
+require 'classes/Database.php';
+require 'includes/auth.php';
 
-$conn = getDB();
+session_start();
+
+$db = new Database();
+$conn = $db->getConn();
 
 $sql = "SELECT * FROM article ORDER BY published_at;";
 
-$results = mysqli_query($conn, $sql);
+$results = $conn->query($sql);
 
 if ($results === false) {
-  echo mysqli_error($conn);
+  var_dump($conn->errorInfo());
 } else {
-  $articles = mysqli_fetch_all($results, MYSQLI_ASSOC);
+  $articles = $results->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
 
 <?php require 'includes/header.php'; ?>
 
-<a href="new-article.php">New article</a>
+<?php if (isLoggedIn()) : ?>
+
+  <p>You are logged in. <a href="logout.php">Log out</a></p>
+  <a href="new-article.php">New article</a>
+<?php else : ?>
+
+  <p>You are not logged in. <a href="login.php">Login</a> </p>
+
+<?php endif; ?>
 
 <?php if (empty($articles)) : ?>
   <p>No articles found!</p>

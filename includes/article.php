@@ -5,12 +5,13 @@
  * 
  * @param object $conn Connecton to the database
  * @param integer $id the article ID
+ * @param string $columns Optional list of columns for the select, defaults to *
  * 
  * @return mixed An associative array containing the article with that ID, or null if not found
  */
-function getArticle($conn, $id)
+function getArticle($conn, $id, $columns = '*')
 {
-  $sql = "SELECT * FROM article WHERE id = ?";
+  $sql = "SELECT $columns FROM article WHERE id = ?";
 
   $stmt = mysqli_prepare($conn, $sql);
 
