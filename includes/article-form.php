@@ -1,27 +1,28 @@
-<?php if (!empty($errors)) : ?>
-  <ul>
-    <?php foreach ($errors as $error) : ?>
-      <li><?= $error ?></li>
-    <?php endforeach; ?>
-  </ul>
+<?php if (!empty($article->errors)) : ?>
+    <ul>
+        <?php foreach ($article->errors as $error) : ?>
+            <li><?= $error ?></li>
+        <?php endforeach; ?>
+    </ul>
 <?php endif; ?>
 
 <form method="post">
+    <a href="index.php">Home</a>
+    <div>
+        <label for="title">Title</label>
+        <input name="title" id="title" placeholder="Article title" value="<?= htmlspecialchars($article->title); ?>">
+    </div>
 
-  <div>
-    <label for="title">Title</label>
-    <input name="title" id="title" placeholder="Article title" value="<?= htmlspecialchars($title); ?>">
-  </div>
+    <div>
+        <label for="content">Content</label>
+        <textarea name="content" rows="4" cols="40" id="content" placeholder="Article content"><?= htmlspecialchars($article->content); ?></textarea>
+    </div>
 
-  <div>
-    <label for="content">Content</label>
-    <textarea name="content" rows="4" cols="40" id="content" placeholder="Article content"><?= htmlspecialchars($content); ?></textarea>
-  </div>
+    <div>
+        <label for="published_at">Publication date and time</label>
+        <input type="text" name="published_at" id="published_at" value="<?= htmlspecialchars($article->published_at); ?>">
+    </div>
 
-  <div>
-    <label for="published_at">Publishd date and time</label>
-    <input type="text" name="published_at" id="published_at" value="<?= htmlspecialchars($published_at); ?>">
-  </div>
+    <button>Save</button>
 
-  <button>Save</button>
 </form>
