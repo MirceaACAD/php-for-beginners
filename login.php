@@ -1,15 +1,10 @@
 <?php
 
-require 'includes/url.php';
-require 'classes/User.php';
-require 'classes/Database.php';
-
-session_start();
+require 'includes/init.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $db = new Database();
-    $conn = $db->getConn();
+    $conn = require 'includes/db.php';
 
     if (User::authenticate($conn, $_POST['username'], $_POST['password'])) {
 
@@ -17,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $_SESSION['is_logged_in'] = true;
 
-        redirect('/');
+        Url::redirect('/');
     } else {
 
         $error = "login incorrect";

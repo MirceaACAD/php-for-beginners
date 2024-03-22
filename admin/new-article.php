@@ -1,11 +1,6 @@
 <?php
 
-require 'classes/Database.php';
-require 'classes/Article.php';
-require 'includes/url.php';
-require 'classes/Auth.php';
-
-session_start();
+require '../includes/init.php';
 
 if (!Auth::isLoggedIn()) {
 
@@ -16,8 +11,8 @@ $article = new Article();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $db = new Database();
-    $conn = $db->getConn();
+
+    $conn = require '../includes/db.php';
 
     $article->title = $_POST['title'];
     $article->content = $_POST['content'];
@@ -25,15 +20,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($article->create($conn)) {
 
-        redirect("/article.php?id={$article->id}");
+        Url::redirect("/admin/article.php?id={$article->id}");
     }
 }
 
 ?>
-<?php require 'includes/header.php'; ?>
+<?php require '../includes/header.php'; ?>
 
 <h2>New article</h2>
 
 <?php require 'includes/article-form.php'; ?>
 
-<?php require 'includes/footer.php'; ?>
+<?php require '../includes/footer.php'; ?>

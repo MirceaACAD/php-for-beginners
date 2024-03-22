@@ -7,7 +7,6 @@
 <?php endif; ?>
 
 <form method="post">
-    <a href="index.php">Home</a>
     <div>
         <label for="title">Title</label>
         <input name="title" id="title" placeholder="Article title" value="<?= htmlspecialchars($article->title); ?>">
